@@ -24,7 +24,7 @@ public class User {
     private Household household;
 
 //    TODO: JsonIgnore
-    @OneToMany // the @JoinColumn is on the other side of the OneToMany relationship
+    @OneToMany(mappedBy = "task")// the @JoinColumn is on the other side of the OneToMany relationship
     private ArrayList<Task> tasks;
 
     public User(String name, String preference, Household household) {
