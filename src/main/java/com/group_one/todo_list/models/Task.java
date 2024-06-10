@@ -40,6 +40,7 @@ public class Task {
     public Task(String description, String category, LocalDate dueDate, Household household) {
         this.description = description;
         this.category = category;
+        this.status = Status.NOT_STARTED;
         this.dueDate = dueDate;
         this.household = household;
         this.user = null;
