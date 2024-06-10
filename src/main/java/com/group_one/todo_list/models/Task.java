@@ -21,7 +21,7 @@ public class Task {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private enum status;
+    private Status status;
 
     @Column(name = "due_date")
     private LocalDate dueDate;
