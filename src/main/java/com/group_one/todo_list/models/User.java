@@ -1,8 +1,10 @@
 package com.group_one.todo_list.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -21,11 +23,13 @@ public class User {
 //    TODO: JsonIgnore
     @ManyToOne
     @JoinColumn(name = "household_id")
+    @JsonIgnoreProperties({"users"})
     private Household household;
 
 //    TODO: JsonIgnore
-    @OneToMany(mappedBy = "task")// the @JoinColumn is on the other side of the OneToMany relationship
-    private ArrayList<Task> tasks;
+    @OneToMany(mappedBy = "user")// the @JoinColumn is on the other side of the OneToMany relationship
+    @JsonIgnoreProperties({"user"})
+    private List<Task> tasks;
 
     public User(String name, String preference, Household household) {
         this.name = name;
@@ -70,11 +74,11 @@ public class User {
         this.household = household;
     }
 
-    public ArrayList<Task> getTasks() {
+    public List<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(ArrayList<Task> tasks) {
+    public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
 

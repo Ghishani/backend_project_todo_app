@@ -4,6 +4,7 @@ import com.group_one.todo_list.models.Household;
 import com.group_one.todo_list.models.Task;
 import com.group_one.todo_list.models.User;
 import com.group_one.todo_list.repositories.HouseholdRepository;
+import com.group_one.todo_list.repositories.TaskRepository;
 import com.group_one.todo_list.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -20,6 +21,9 @@ public class DataLoader implements ApplicationRunner {
 
     @Autowired
     HouseholdRepository householdRepository;
+
+    @Autowired
+    TaskRepository taskRepository;
 
 
     public void run(ApplicationArguments args) throws Exception{
@@ -60,6 +64,15 @@ public class DataLoader implements ApplicationRunner {
         userRepository.save(mother);
         userRepository.save(son);
         userRepository.save(daughter);
+
+        taskRepository.save(task1);
+        taskRepository.save(task2);
+        taskRepository.save(task3);
+        taskRepository.save(task4);
+        taskRepository.save(task5);
+        taskRepository.save(task6);
+        taskRepository.save(task7);
+        taskRepository.save(task8);
 
     }
 }
