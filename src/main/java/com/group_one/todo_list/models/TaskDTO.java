@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 public class TaskDTO {
 
-    private long id;
     private String description;
     private String category;
     private Status status;
@@ -12,8 +11,7 @@ public class TaskDTO {
     private long householdId;
     private long userId;
 
-    public TaskDTO(long id, String description, String category, Status status, LocalDate dueDate, long householdId, long userId) {
-        this.id = id;
+    public TaskDTO( String description, String category, Status status, LocalDate dueDate, long householdId, long userId) {
         this.description = description;
         this.category = category;
         this.status = status;
@@ -23,14 +21,6 @@ public class TaskDTO {
     }
 
     public TaskDTO() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getDescription() {
