@@ -82,11 +82,12 @@ public class User {
         this.tasks = tasks;
     }
 
-//    TODO: create methods to add and remove tasks from tasks ArrayList
 
-//    public void addTask(Task newTask) {
-//        this.tasks.add(newTask);
-//    }
-//
-//    public Task removeTask()
+    public void addTask(Task newTask) {
+        this.tasks.add(newTask);
+    }
+
+    public void removeTask(Task task) {
+        this.tasks.remove(task);
+    }
 }
