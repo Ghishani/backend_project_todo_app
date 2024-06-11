@@ -61,7 +61,7 @@ public class UserService {
             if (householdOptional.isPresent()) {
                 updatedUser.setHousehold(householdOptional.get());
             } else {
-                updatedUser.setHousehold(null); // this means a user can be not assigned to Household if the household entered in the body does not exist
+                return userRepository.save(updatedUser); // this means if a user household doesn't exist it won't change but every other element will.
             }
         }
 
