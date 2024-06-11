@@ -1,13 +1,16 @@
 package com.group_one.todo_list.services;
 
+import com.group_one.todo_list.models.Household;
 import com.group_one.todo_list.models.Task;
 import com.group_one.todo_list.models.TaskDTO;
 import com.group_one.todo_list.models.User;
+import com.group_one.todo_list.repositories.HouseholdRepository;
 import com.group_one.todo_list.repositories.TaskRepository;
 import com.group_one.todo_list.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +23,15 @@ public class TaskService {
     @Autowired
     UserRepository userRepository;
 
+//    @Autowired
+//    HouseholdRepository householdRepository;
+
+    @Autowired
+    HouseholdService householdService;
+
+    @Autowired
+    UserService userService;
+
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
@@ -28,11 +40,31 @@ public class TaskService {
         return taskRepository.findById(id);
     }
 
+    public Task createTask(TaskDTO taskDTO) {
+        Optional<Household> householdOptional = householdService.getHouseholdById(taskDTO.getHouseholdId());
+
+        if (householdOptional.isEmpty()) {
+            return null;
+        }
+
+        Household household = householdOptional.get();
+        Task newTask = new Task(
+                taskDTO.getDescription(),
+                taskDTO.getCategory(),
+                taskDTO.getDueDate(),
+                household);
+
+        return taskRepository.save(newTask);
+    }
+
+
+
 //    TODO: May need a derived query
 //    public Optional<List<Task>> getTaskById(String category) {
 //        return taskRepository.
 //    }
 
+    // TODO: EXTENSION: ADD LOGIC TO ENSURE THAT THE USER IS IN THE HOUSEHOLD OF THE TASK. AND LOGIC TO ENSURE HOUSEHOLDID AND USERID ARE VALID
     public Task updateTask(long id, TaskDTO taskDTO) {
         Task taskToUpdate = taskRepository.findById(id).get();
 
@@ -56,13 +88,15 @@ public class TaskService {
             taskToUpdate.setDueDate(taskDTO.getDueDate());
         }
 
-//        TODO: We need to be able to get Household by ID
-//        if (!(taskDTO.getHouseholdId() == 0)){
-//            taskToUpdate.setHousehold();
-//        }
-//
-//        TODO: We need to be able to get User by ID
+        if (taskDTO.getHouseholdId() != 0) {
+            Household household = householdService.getHouseholdById(taskDTO.getHouseholdId()).get();
+            taskToUpdate.setHousehold(household);
+        }
 
+        if (taskDTO.getUserId() != 0) {
+            User user = userService.getUserById(taskDTO.getUserId()).get();
+            taskToUpdate.setUser(user);
+        }
         return taskRepository.save(taskToUpdate);
     }
 
