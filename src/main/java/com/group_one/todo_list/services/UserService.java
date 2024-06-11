@@ -49,24 +49,28 @@ public class UserService {
         if (userToUpdate.isEmpty()) {
             return null;
         } else {
+
+            User updatedUser = userToUpdate.get();
+
             if (userDTO.getName() != null) {
-                userToUpdate.(taskDTO.getDescription());
+                updatedUser.setName(userDTO.getName());
             }
 
-            if (taskDTO.getCategory() != null) {
-                taskToUpdate.setCategory(taskDTO.getCategory());
+            if (userDTO.getPreference() != null) {
+                updatedUser.setPreference(userDTO.getPreference());
             }
 
-            if (taskDTO.getStatus() != null) {
-                taskToUpdate.setStatus(taskDTO.getStatus());
+            if (userDTO.getHouseholdId() != 0) {
+                Optional<Household> householdOptional = householdRepository.findById(userDTO.getHouseholdId());
+                if (householdOptional.isPresent()) {
+                    updatedUser.setHousehold(householdOptional.get());
+                } else {
+                    updatedUser.setHousehold(null); // this means a user can be not assigned to Household if the household entered in the body does not exist
+                }
             }
 
-            if (taskDTO.getStatus() != null) {
-                taskToUpdate.setCategory(taskDTO.getCategory());
-            }
+            return userRepository.save(updatedUser);
 
-            if (taskDTO.getDueDate() != null) {
-                taskToUpdate.setDueDate(taskDTO.getDueDate());
-            }
         }
+    }
 }
