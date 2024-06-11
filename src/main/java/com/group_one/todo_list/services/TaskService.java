@@ -66,12 +66,10 @@ public class TaskService {
         return taskRepository.save(taskToUpdate);
     }
 
-    public Optional<Task> assignTaskToUser(long taskId, long userId) {
-        Task assignedTask = taskRepository.findById(taskId).get();
-        User user = userRepository.findById(userId).get();
-        user.addTask(assignedTask);
-
-
-    }
+//    public Optional<Task> assignTaskToUser(long taskId, long userId) {
+//        Task assignedTask = taskRepository.findById(taskId).get();
+//        User user = userRepository.findById(userId).get();
+//        user.addTask(assignedTask);
+//    }
 
 }
