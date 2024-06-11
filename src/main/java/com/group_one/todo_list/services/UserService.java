@@ -1,8 +1,6 @@
 package com.group_one.todo_list.services;
 
-import com.group_one.todo_list.models.Household;
-import com.group_one.todo_list.models.User;
-import com.group_one.todo_list.models.UserDTO;
+import com.group_one.todo_list.models.*;
 import com.group_one.todo_list.repositories.HouseholdRepository;
 import com.group_one.todo_list.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,4 +43,30 @@ public class UserService {
         return null;
     }
 
+    public User updateUser(long id, UserDTO userDTO) {
+        Optional<User> userToUpdate = userRepository.findById(id);
+
+        if (userToUpdate.isEmpty()) {
+            return null;
+        } else {
+            if (userDTO.getName() != null) {
+                userToUpdate.(taskDTO.getDescription());
+            }
+
+            if (taskDTO.getCategory() != null) {
+                taskToUpdate.setCategory(taskDTO.getCategory());
+            }
+
+            if (taskDTO.getStatus() != null) {
+                taskToUpdate.setStatus(taskDTO.getStatus());
+            }
+
+            if (taskDTO.getStatus() != null) {
+                taskToUpdate.setCategory(taskDTO.getCategory());
+            }
+
+            if (taskDTO.getDueDate() != null) {
+                taskToUpdate.setDueDate(taskDTO.getDueDate());
+            }
+        }
 }
