@@ -31,4 +31,7 @@ public class HouseholdService {
         return householdRepository.save(householdToUpdate);
     }
 
+    public Household createHousehold (Household household){
+        return householdRepository.save(household);
+    }
 }

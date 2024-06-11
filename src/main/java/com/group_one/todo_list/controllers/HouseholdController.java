@@ -36,7 +36,7 @@ public class HouseholdController {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
-    
+
 
 
 }
