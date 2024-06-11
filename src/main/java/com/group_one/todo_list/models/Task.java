@@ -29,12 +29,12 @@ public class Task {
     // many tasks to one household
     @ManyToOne
     @JoinColumn(name = "household_id")
-    @JsonIgnoreProperties({"tasks"})
+    @JsonIgnoreProperties({"tasks", "users"})
     private Household household;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties({"tasks"})
+    @JsonIgnoreProperties({"tasks", "household"})
     private User user;
 
     public Task(String description, String category, LocalDate dueDate, Household household) {

@@ -80,10 +80,6 @@ public class TaskService {
             taskToUpdate.setStatus(taskDTO.getStatus());
         }
 
-        if (taskDTO.getStatus() != null) {
-            taskToUpdate.setCategory(taskDTO.getCategory());
-        }
-
         if (taskDTO.getDueDate() != null) {
             taskToUpdate.setDueDate(taskDTO.getDueDate());
         }
@@ -92,18 +88,16 @@ public class TaskService {
             Household household = householdService.getHouseholdById(taskDTO.getHouseholdId()).get();
             taskToUpdate.setHousehold(household);
         }
-
-        if (taskDTO.getUserId() != 0) {
-            User user = userService.getUserById(taskDTO.getUserId()).get();
-            taskToUpdate.setUser(user);
-        }
         return taskRepository.save(taskToUpdate);
     }
 
-//    public Optional<Task> assignTaskToUser(long taskId, long userId) {
-//        Task assignedTask = taskRepository.findById(taskId).get();
-//        User user = userRepository.findById(userId).get();
-//        user.addTask(assignedTask);
-//    }
+
+    public Task assignUserToTask(Long taskId, Long userId) {
+        Task assignedTask = taskRepository.findById(taskId).get();
+        User user = userRepository.findById(userId).get();
+        user.addTask(assignedTask);
+        assignedTask.setUser(user);
+        return taskRepository.save(assignedTask);
+    }
 
 }

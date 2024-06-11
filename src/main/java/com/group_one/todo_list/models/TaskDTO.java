@@ -9,15 +9,14 @@ public class TaskDTO {
     private Status status;
     private LocalDate dueDate;
     private long householdId;
-    private long userId;
 
-    public TaskDTO( String description, String category, Status status, LocalDate dueDate, long householdId, long userId) {
+
+    public TaskDTO( String description, String category, Status status, LocalDate dueDate, long householdId) {
         this.description = description;
         this.category = category;
         this.status = status;
         this.dueDate = dueDate;
         this.householdId = householdId;
-        this.userId = userId;
     }
 
     public TaskDTO() {
@@ -63,11 +62,4 @@ public class TaskDTO {
         this.householdId = householdId;
     }
 
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
 }

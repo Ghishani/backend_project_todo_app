@@ -24,7 +24,7 @@ public class HouseholdController {
         return new ResponseEntity<>(households, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}")//localhost:8080/households/1
+    @GetMapping(value = "/{id}") //localhost:8080/households/1
     public ResponseEntity<Household> getHouseholdById(@PathVariable Long id){
         Optional<Household> foundHousehold = householdService.getHouseholdById(id);
         if (foundHousehold.isPresent()){

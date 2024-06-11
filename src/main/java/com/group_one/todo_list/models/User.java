@@ -28,7 +28,7 @@ public class User {
 
 //    TODO: JsonIgnore
     @OneToMany(mappedBy = "user")// the @JoinColumn is on the other side of the OneToMany relationship
-    @JsonIgnoreProperties({"user"})
+    @JsonIgnoreProperties({"user", "household"})
     private List<Task> tasks;
 
     public User(String name, String preference, Household household) {
