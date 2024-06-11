@@ -46,31 +46,26 @@ public class UserService {
     public User updateUser(long id, UserDTO userDTO) {
         Optional<User> userToUpdate = userRepository.findById(id);
 
-        if (userToUpdate.isEmpty()) {
-            return null;
-        } else {
+        User updatedUser = userToUpdate.get();
 
-            User updatedUser = userToUpdate.get();
-
-            if (userDTO.getName() != null) {
-                updatedUser.setName(userDTO.getName());
-            }
-
-            if (userDTO.getPreference() != null) {
-                updatedUser.setPreference(userDTO.getPreference());
-            }
-
-            if (userDTO.getHouseholdId() != 0) {
-                Optional<Household> householdOptional = householdRepository.findById(userDTO.getHouseholdId());
-                if (householdOptional.isPresent()) {
-                    updatedUser.setHousehold(householdOptional.get());
-                } else {
-                    updatedUser.setHousehold(null); // this means a user can be not assigned to Household if the household entered in the body does not exist
-                }
-            }
-
-            return userRepository.save(updatedUser);
-
+        if (userDTO.getName() != null) {
+            updatedUser.setName(userDTO.getName());
         }
+
+        if (userDTO.getPreference() != null) {
+            updatedUser.setPreference(userDTO.getPreference());
+        }
+
+        if (userDTO.getHouseholdId() != 0) {
+            Optional<Household> householdOptional = householdRepository.findById(userDTO.getHouseholdId());
+            if (householdOptional.isPresent()) {
+                updatedUser.setHousehold(householdOptional.get());
+            } else {
+                updatedUser.setHousehold(null); // this means a user can be not assigned to Household if the household entered in the body does not exist
+            }
+        }
+
+        return userRepository.save(updatedUser);
+
     }
 }

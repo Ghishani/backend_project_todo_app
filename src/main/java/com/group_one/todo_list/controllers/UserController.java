@@ -44,6 +44,18 @@ public class UserController {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
+    @PatchMapping(value = "/{id}") //localhost:8080/households/1
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+        Optional<User> foundUser = userService.getUserById(id);
+        if (foundUser.isPresent()) {
+            User updatedUser = userService.updateUser(id, userDTO);
+            return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+
 
 
 
