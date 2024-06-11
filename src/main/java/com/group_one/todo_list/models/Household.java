@@ -53,4 +53,13 @@ public class Household {
     public void setUsers(List<User> users) {
         this.users = users;
     }
+
+    public void addUserToHousehold(User user) {
+        this.users.add(user);
+    }
+
+    public void removeUserFromHousehold (User user) {
+        this.users.remove(user);
+    }
+
 }
