@@ -45,7 +45,8 @@ public class UserService {
             User newUser = new User(
                     userDTO.getName(),
                     userDTO.getPreference(),
-                    household.get());
+                    household.get(),
+                    userDTO.getAge());
             return userRepository.save(newUser);
 
         }
@@ -63,6 +64,10 @@ public class UserService {
 
         if (userDTO.getPreference() != null) {
             updatedUser.setPreference(userDTO.getPreference());
+        }
+
+        if (userDTO.getAge() != 0) {
+            updatedUser.setAge(userDTO.getAge());
         }
 
         if (userDTO.getHouseholdId() != 0) {

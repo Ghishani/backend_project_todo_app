@@ -83,7 +83,7 @@ public class TaskService {
         return taskRepository.save(taskToUpdate);
     }
 
-
+// redudant as we have a way to add a user to a task via another user
     public Task assignUserToTask(Long taskId, Long userId) {
         Task assignedTask = taskRepository.findById(taskId).get();
         User user = userRepository.findById(userId).get();
@@ -110,5 +110,40 @@ public class TaskService {
 
 
     }
+
+    public Task assignUserToTaskByUser(Long taskId, UserAssignToUserDTO userAssignToUserDTO){
+
+        Task assignedTask = taskRepository.findById(taskId).get();
+        User userReceivingTask = userRepository.findById(userAssignToUserDTO.getUserReceivingTaskId()).get();
+        User userAssigningTask = userRepository.findById(userAssignToUserDTO.getAssigningUserId()).get();
+
+        if ((userAssigningTask.getAge() >= 18) &&
+                (userAssigningTask.getHousehold().getId() == userReceivingTask.getHousehold().getId()) &&
+                (assignedTask.getHousehold().getId() == userAssigningTask.getHousehold().getId())){
+            userReceivingTask.addTask(assignedTask);
+            assignedTask.setUser(userReceivingTask);
+            return taskRepository.save(assignedTask);
+        }  else {
+            return null;
+        }
+
+    }
+
+    public Task updateStatus (long taskId, TaskDTO taskDTO) {
+        // the taskId is the id of the task you want to update
+        // the taskDTO contains the status you want to update to
+        Task task = taskRepository.findById(taskId).get();
+        if(task.getUser() == null){
+            return null;
+        }
+        if (task.getHousehold().getId() == task.getUser().getHousehold().getId()) {
+            task.setStatus(taskDTO.getStatus());
+            return taskRepository.save(task);
+        }
+        return null;
+    }
+
+    // We need a way of checking a user is assigned to a task before the task is completed
+
 
 }

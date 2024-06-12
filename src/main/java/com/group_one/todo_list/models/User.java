@@ -20,6 +20,10 @@ public class User {
     @Column(name = "preference")
     private Category preference;
 
+//    extension: add age to user data
+    @Column(name = "age")
+    private int age;
+
 //    TODO: JsonIgnore
     @ManyToOne
     @JoinColumn(name = "household_id")
@@ -31,11 +35,12 @@ public class User {
     @JsonIgnoreProperties({"user", "household"})
     private List<Task> tasks;
 
-    public User(String name, Category preference, Household household) {
+    public User(String name, Category preference, Household household, int age) {
         this.name = name;
         this.preference = preference;
         this.household = household;
         this.tasks = new ArrayList<>();
+        this.age = age;
     }
 
     public User(){
@@ -82,6 +87,13 @@ public class User {
         this.tasks = tasks;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     public void addTask(Task newTask) {
         this.tasks.add(newTask);

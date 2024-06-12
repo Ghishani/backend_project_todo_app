@@ -33,14 +33,14 @@ public class DataLoader implements ApplicationRunner {
         Household palace = new Household("Buckingham Palace");
         Household house = new Household("Family House");
 
-        User ghishani = new User("Ghishani", Category.CLEANING,igloo);
-        User tom = new User("Tom", Category.LAUNDRY, blueHouse);
-        User adil = new User("Adil", Category.HOOVERING, blueHouse);
-        User gellila = new User("Gellila", Category.COOKING, palace);
-        User father = new User("John", Category.COOKING, house);
-        User mother = new User("Sarah", Category.CLEANING, house);
-        User son = new User("Bob", Category.HOOVERING, house);
-        User daughter = new User("Bobbie", Category.LAUNDRY, house);
+        User ghishani = new User("Ghishani", Category.CLEANING,igloo, 23);
+        User tom = new User("Tom", Category.LAUNDRY, blueHouse, 24);
+        User adil = new User("Adil", Category.HOOVERING, blueHouse, 29);
+        User gellila = new User("Gellila", Category.COOKING, palace, 23);
+        User father = new User("John", Category.COOKING, house, 50);
+        User mother = new User("Sarah", Category.CLEANING, house, 54);
+        User son = new User("Bob", Category.HOOVERING, house, 14);
+        User daughter = new User("Bobbie", Category.LAUNDRY, house,12);
 
         Task task1 = new Task("Wipe the kitchen countertops", Category.CLEANING, LocalDate.of(2024, 6, 18),blueHouse);
         Task task2 = new Task("Put the clothes in the washing machine", Category.LAUNDRY, LocalDate.of(2024, 6, 16),igloo);
