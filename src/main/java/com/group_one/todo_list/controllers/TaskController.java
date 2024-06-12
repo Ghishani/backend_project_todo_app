@@ -1,9 +1,6 @@
 package com.group_one.todo_list.controllers;
 
-import com.group_one.todo_list.models.Category;
-import com.group_one.todo_list.models.Household;
-import com.group_one.todo_list.models.Task;
-import com.group_one.todo_list.models.TaskDTO;
+import com.group_one.todo_list.models.*;
 import com.group_one.todo_list.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -62,6 +59,13 @@ public class TaskController {
     public ResponseEntity<List<Task>> getAllByCategory(@RequestParam(required = false) Category category) {
         List<Task> tasks = taskService.getTaskByCategory(category);
         return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
+
+    // for this path, userId in the path is the user assigning the task, the user they assign to is within the body
+    @PatchMapping(value = "/assign-task-by-user/{userAssigningId}") // localhost:8080/tasks/assign-task-by-user/1
+    public ResponseEntity<Task> assignUserToTaskByUser(@PathVariable Long userAssigningId, @RequestBody UserAssignToUserDTO userAssignToUserDTO){
+        Task updatedTask = taskService.assignUserToTaskByUser(userAssigningId, userAssignToUserDTO);
+        return new ResponseEntity<>(updatedTask, HttpStatus.OK);
     }
 
 

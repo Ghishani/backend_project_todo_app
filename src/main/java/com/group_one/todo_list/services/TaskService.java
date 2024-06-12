@@ -99,4 +99,12 @@ public class TaskService {
         taskRepository.deleteById(taskId);
     }
 
+    public Task assignUserToTaskByUser(Long userAssigningId, UserAssignToUserDTO userAssignToUserDTO){
+        Task assignedTask = taskRepository.findById(userAssignToUserDTO.getTaskId()).get();
+        User user = userRepository.findById(userAssignToUserDTO.getUserId()).get();
+        user.addTask(assignedTask);
+        assignedTask.setUser(user);
+        return taskRepository.save(assignedTask);
+    }
+
 }
