@@ -29,6 +29,7 @@ public class HouseholdService {
             householdToUpdate.setName(household.getName());
         }
         return householdRepository.save(householdToUpdate);
+
     }
 
     public Household createHousehold (Household household){

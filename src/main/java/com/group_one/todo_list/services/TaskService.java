@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -96,7 +97,16 @@ public class TaskService {
     }
 
     public void deleteTask(long taskId){
-        taskRepository.deleteById(taskId);
+        taskRepository.deleteById(taskId); // TODO: TBC
+    }
+
+    public void checkDueDate(long householdId, LocalDate dueDate) {
+        // check if due date is past
+        // If past -> update date to a week from now
+        List<Task> tasksOverDue = taskRepository.findByDueDateLessThanAndHouseholdIdEquals(dueDate, householdId);
+
+
+
     }
 
 }

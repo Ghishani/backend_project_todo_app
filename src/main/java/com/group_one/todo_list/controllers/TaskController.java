@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,7 +53,7 @@ public class TaskController {
         }
     }
 
-    @PatchMapping(value = "/assign-task/{taskId}") // localhost:8080/tasks/1 (in the body, just put a number, not {"userId": 2})
+    @PatchMapping(value = "/assign-task/{taskId}") // localhost:8080/tasks/assign-task/1 (in the body, just put a number, not {"userId": 2})
     public ResponseEntity<Task> assignUserToTask (@PathVariable Long taskId, @RequestBody Long userId) {
         Task updatedTask = taskService.assignUserToTask(taskId, userId);
         return new ResponseEntity<>(updatedTask, HttpStatus.OK);
@@ -64,5 +65,10 @@ public class TaskController {
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/filter-by-due-date/{id}") // localhost:8080/tasks/filter-by-due-date/1
+    public ResponseEntity<List<Task>> getAllByDueDate(@PathVariable long id, @RequestParam(required = false) LocalDate dueDate) {
+        List<Task> tasks = taskService.getTaskByDueDate(id, dueDate);
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
 
 }
