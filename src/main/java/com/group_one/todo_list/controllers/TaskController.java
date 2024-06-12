@@ -75,6 +75,8 @@ public class TaskController {
         Task updatedTask = taskService.updateStatus(id, taskDTO);
         return new ResponseEntity<>(updatedTask, HttpStatus.OK);
 
+    }
+
     @GetMapping(value = "/filter-by-overdue-tasks") // localhost:8080/tasks/filter-by-overdue-tasks
     public ResponseEntity<List<Task>> getAllByDueDate(@RequestBody DueDatePerHouseholdDTO dueDatePerHouseholdDTO) {
         List<Task> tasks = taskService.checkDueDate(dueDatePerHouseholdDTO);
