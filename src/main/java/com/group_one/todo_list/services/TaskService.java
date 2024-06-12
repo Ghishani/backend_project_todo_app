@@ -95,4 +95,8 @@ public class TaskService {
         return taskRepository.findByCategoryEquals(category);
     }
 
+    public void deleteTask(long taskId){
+        taskRepository.deleteById(taskId);
+    }
+
 }
