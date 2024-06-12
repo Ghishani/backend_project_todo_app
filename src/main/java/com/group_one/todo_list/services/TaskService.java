@@ -97,4 +97,8 @@ public class TaskService {
         return taskRepository.save(assignedTask);
     }
 
+    public List<Task> getTaskByCategory(String category) {
+        return taskRepository.findByCategoryEquals(category);
+    }
+
 }
