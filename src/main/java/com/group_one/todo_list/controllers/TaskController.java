@@ -57,5 +57,11 @@ public class TaskController {
         return new ResponseEntity<>(updatedTask, HttpStatus.OK);
     }
 
+    @GetMapping(value = "filter-by-category")
+    public ResponseEntity<List<Task>> getAllByCategory(@RequestParam(required = false) String category) {
+        List<Task> tasks = taskService.getTaskByCategory(category);
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
+
 
 }
