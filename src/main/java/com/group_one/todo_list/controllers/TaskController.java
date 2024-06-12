@@ -1,9 +1,6 @@
 package com.group_one.todo_list.controllers;
 
-import com.group_one.todo_list.models.Category;
-import com.group_one.todo_list.models.Household;
-import com.group_one.todo_list.models.Task;
-import com.group_one.todo_list.models.TaskDTO;
+import com.group_one.todo_list.models.*;
 import com.group_one.todo_list.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -65,9 +62,9 @@ public class TaskController {
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/filter-by-due-date/{id}") // localhost:8080/tasks/filter-by-due-date/1
-    public ResponseEntity<List<Task>> getAllByDueDate(@PathVariable long id, @RequestParam(required = false) LocalDate dueDate) {
-        List<Task> tasks = taskService.getTaskByDueDate(id, dueDate);
+    @GetMapping(value = "/filter-by-overdue-tasks") // localhost:8080/tasks/filter-by-overdue-tasks
+    public ResponseEntity<List<Task>> getAllByDueDate(@RequestBody DueDatePerHouseholdDTO dueDatePerHouseholdDTO) {
+        List<Task> tasks = taskService.checkDueDate(dueDatePerHouseholdDTO);
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 

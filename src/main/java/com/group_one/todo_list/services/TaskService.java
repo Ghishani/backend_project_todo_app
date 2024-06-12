@@ -100,13 +100,13 @@ public class TaskService {
         taskRepository.deleteById(taskId); // TODO: TBC
     }
 
-    public void checkDueDate(long householdId, LocalDate dueDate) {
+    public List<Task> checkDueDate(DueDatePerHouseholdDTO dueDatePerHouseholdDTO) {
         // check if due date is past
         // If past -> update date to a week from now
-        List<Task> tasksOverDue = taskRepository.findByDueDateLessThanAndHouseholdIdEquals(dueDate, householdId);
-        for (Task task : tasksOverDue){
-
-        }
+        LocalDate currentDate = dueDatePerHouseholdDTO.getCurrentDate();
+        long householdId = dueDatePerHouseholdDTO.getHouseholdId();
+        List<Task> tasksOverDuePerHousehold = taskRepository.findByDueDateLessThanAndHouseholdIdEquals(currentDate, householdId);
+        return tasksOverDuePerHousehold;
 
 
     }
