@@ -51,7 +51,7 @@ public class TaskController {
         }
     }
 
-    @PatchMapping(value = "/assign-user/{taskId}") // localhost:8080/tasks/1 (in the body, just put a number, not {"userId": 2})
+    @PatchMapping(value = "/assign-task/{taskId}") // localhost:8080/tasks/1 (in the body, just put a number, not {"userId": 2})
     public ResponseEntity<Task> assignUserToTask (@PathVariable Long taskId, @RequestBody Long userId) {
         Task updatedTask = taskService.assignUserToTask(taskId, userId);
         return new ResponseEntity<>(updatedTask, HttpStatus.OK);
