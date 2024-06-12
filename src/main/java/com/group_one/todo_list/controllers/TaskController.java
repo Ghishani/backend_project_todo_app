@@ -68,4 +68,10 @@ public class TaskController {
         return new ResponseEntity<>(updatedTask, HttpStatus.OK);
     }
 
+    @PatchMapping(value = "/update-status/{id}") //  localhost:8080/tasks/update-status/1  // update task 1
+    public ResponseEntity<Task> updateStatusOfTask(@PathVariable long id, @RequestBody TaskDTO taskDTO) {
+        Task updatedTask = taskService.updateStatus(id, taskDTO);
+        return new ResponseEntity<>(updatedTask, HttpStatus.OK);
+    }
+
 }
