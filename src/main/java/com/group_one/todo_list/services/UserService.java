@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Service
 public class UserService {
 
@@ -20,6 +22,9 @@ public class UserService {
 
     @Autowired
     HouseholdService householdService;
+
+    @Autowired
+    TaskService taskService;
 
     public List<User> getAllUsers(){
         return userRepository.findAll();
@@ -70,4 +75,13 @@ public class UserService {
     }
 
 //    TODO: Add paths for filtering
+
+
+//    derived query to get all the tasks assigned to user
+//    set userid to null for those tasks
+//    delete user method
+
+    public void deleteUser(long userId){
+        userRepository.deleteById(userId);
+    }
 }

@@ -44,7 +44,7 @@ public class UserController {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
-    @PatchMapping(value = "/{id}") //localhost:8080/households/1
+    @PatchMapping(value = "/{id}") //localhost:8080/users/1
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
         Optional<User> foundUser = userService.getUserById(id);
         if (foundUser.isPresent()) {
@@ -56,6 +56,16 @@ public class UserController {
     }
 
     //    TODO: Add paths for filtering
+
+
+//    we are deleting user here because it will be able to delete the task that is linked to them as well
+
+    @DeleteMapping(value = "/{id}") //localhost:8080/users/1
+    public ResponseEntity<Long> deleteUser(@PathVariable long id){
+        userService.deleteUser(id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
 
 
 

@@ -23,9 +23,6 @@ public class TaskService {
     @Autowired
     UserRepository userRepository;
 
-//    @Autowired
-//    HouseholdRepository householdRepository;
-
     @Autowired
     HouseholdService householdService;
 
