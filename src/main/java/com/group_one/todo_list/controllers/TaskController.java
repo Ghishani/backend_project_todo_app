@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,7 +50,7 @@ public class TaskController {
         }
     }
 
-    @PatchMapping(value = "/assign-task/{taskId}") // localhost:8080/tasks/1 (in the body, just put a number, not {"userId": 2})
+    @PatchMapping(value = "/assign-task/{taskId}") // localhost:8080/tasks/assign-task/1 (in the body, just put a number, not {"userId": 2})
     public ResponseEntity<Task> assignUserToTask (@PathVariable Long taskId, @RequestBody Long userId) {
         Task updatedTask = taskService.assignUserToTask(taskId, userId);
         return new ResponseEntity<>(updatedTask, HttpStatus.OK);
@@ -60,6 +61,7 @@ public class TaskController {
         List<Task> tasks = taskService.getTaskByCategory(category);
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
+
 
     // for this path, taskId in the path, the users assigning and receiving the task are in the body
     @PatchMapping(value = "/assign-task-by-user/{taskId}") // localhost:8080/tasks/assign-task-by-user/1
@@ -72,6 +74,12 @@ public class TaskController {
     public ResponseEntity<Task> updateStatusOfTask(@PathVariable long id, @RequestBody TaskDTO taskDTO) {
         Task updatedTask = taskService.updateStatus(id, taskDTO);
         return new ResponseEntity<>(updatedTask, HttpStatus.OK);
+
+    @GetMapping(value = "/filter-by-overdue-tasks") // localhost:8080/tasks/filter-by-overdue-tasks
+    public ResponseEntity<List<Task>> getAllByDueDate(@RequestBody DueDatePerHouseholdDTO dueDatePerHouseholdDTO) {
+        List<Task> tasks = taskService.checkDueDate(dueDatePerHouseholdDTO);
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+
     }
 
 }
