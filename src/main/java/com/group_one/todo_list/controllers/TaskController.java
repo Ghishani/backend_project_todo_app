@@ -1,5 +1,6 @@
 package com.group_one.todo_list.controllers;
 
+import com.group_one.todo_list.models.Category;
 import com.group_one.todo_list.models.Household;
 import com.group_one.todo_list.models.Task;
 import com.group_one.todo_list.models.TaskDTO;
@@ -57,8 +58,8 @@ public class TaskController {
         return new ResponseEntity<>(updatedTask, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/filter-by-category") // localhost:8080/tasks/filter-by-category?category=Cleaning
-    public ResponseEntity<List<Task>> getAllByCategory(@RequestParam(required = false) String category) {
+    @GetMapping(value = "/filter-by-category") // localhost:8080/tasks/filter-by-category?category=CLEANING
+    public ResponseEntity<List<Task>> getAllByCategory(@RequestParam(required = false) Category category) {
         List<Task> tasks = taskService.getTaskByCategory(category);
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }

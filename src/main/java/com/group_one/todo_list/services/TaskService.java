@@ -1,9 +1,6 @@
 package com.group_one.todo_list.services;
 
-import com.group_one.todo_list.models.Household;
-import com.group_one.todo_list.models.Task;
-import com.group_one.todo_list.models.TaskDTO;
-import com.group_one.todo_list.models.User;
+import com.group_one.todo_list.models.*;
 import com.group_one.todo_list.repositories.HouseholdRepository;
 import com.group_one.todo_list.repositories.TaskRepository;
 import com.group_one.todo_list.repositories.UserRepository;
@@ -25,9 +22,6 @@ public class TaskService {
 
     @Autowired
     HouseholdService householdService;
-
-    @Autowired
-    UserService userService;
 
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
@@ -97,7 +91,7 @@ public class TaskService {
         return taskRepository.save(assignedTask);
     }
 
-    public List<Task> getTaskByCategory(String category) {
+    public List<Task> getTaskByCategory(Category category) {
         return taskRepository.findByCategoryEquals(category);
     }
 
