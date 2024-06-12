@@ -4,11 +4,13 @@ public class UserDTO {
      private String name;
      private Category preference;
      private long householdId;
+     private int age;
 
-    public UserDTO(String name, Category preference, long householdId) {
+    public UserDTO(String name, Category preference, long householdId, int age) {
         this.name = name;
         this.preference = preference;
         this.householdId = householdId;
+        this.age = age;
     }
 
     public UserDTO() {
@@ -36,5 +38,13 @@ public class UserDTO {
 
     public void setHouseholdId(long householdId) {
         this.householdId = householdId;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }

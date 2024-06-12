@@ -100,11 +100,22 @@ public class TaskService {
     }
 
     public Task assignUserToTaskByUser(Long taskId, UserAssignToUserDTO userAssignToUserDTO){
+
         Task assignedTask = taskRepository.findById(taskId).get();
-        User user = userRepository.findById(userAssignToUserDTO.getUserReceivingTaskId()).get();
-        user.addTask(assignedTask);
-        assignedTask.setUser(user);
-        return taskRepository.save(assignedTask);
+        User userReceivingTask = userRepository.findById(userAssignToUserDTO.getUserReceivingTaskId()).get();
+        User userAssigningTask = userRepository.findById(userAssignToUserDTO.getAssigningUserId()).get();
+
+        if (userAssigningTask.getAge() >= 18 ){
+            userReceivingTask.addTask(assignedTask);
+            assignedTask.setUser(userReceivingTask);
+
+            return taskRepository.save(assignedTask);
+
+        } else {
+
+            return null;
+        }
+
     }
 
 }
