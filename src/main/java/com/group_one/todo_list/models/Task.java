@@ -17,7 +17,7 @@ public class Task {
     private String description;
 
     @Column(name = "category")
-    private String category;
+    private Category category;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
@@ -37,7 +37,7 @@ public class Task {
     @JsonIgnoreProperties({"tasks", "household"})
     private User user;
 
-    public Task(String description, String category, LocalDate dueDate, Household household) {
+    public Task(String description, Category category, LocalDate dueDate, Household household) {
         this.description = description;
         this.category = category;
         this.status = Status.NOT_STARTED;
@@ -73,11 +73,11 @@ public class Task {
         this.dueDate = dueDate;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

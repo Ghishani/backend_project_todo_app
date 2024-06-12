@@ -2,10 +2,10 @@ package com.group_one.todo_list.models;
 
 public class UserDTO {
      private String name;
-     private String preference;
+     private Category preference;
      private long householdId;
 
-    public UserDTO(String name, String preference, long householdId) {
+    public UserDTO(String name, Category preference, long householdId) {
         this.name = name;
         this.preference = preference;
         this.householdId = householdId;
@@ -22,11 +22,11 @@ public class UserDTO {
         this.name = name;
     }
 
-    public String getPreference() {
+    public Category getPreference() {
         return preference;
     }
 
-    public void setPreference(String preference) {
+    public void setPreference(Category preference) {
         this.preference = preference;
     }
 

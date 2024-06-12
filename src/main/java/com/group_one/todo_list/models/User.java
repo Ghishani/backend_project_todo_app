@@ -18,7 +18,7 @@ public class User {
     private String name;
 
     @Column(name = "preference")
-    private String preference;
+    private Category preference;
 
 //    TODO: JsonIgnore
     @ManyToOne
@@ -31,7 +31,7 @@ public class User {
     @JsonIgnoreProperties({"user", "household"})
     private List<Task> tasks;
 
-    public User(String name, String preference, Household household) {
+    public User(String name, Category preference, Household household) {
         this.name = name;
         this.preference = preference;
         this.household = household;
@@ -58,11 +58,11 @@ public class User {
         this.name = name;
     }
 
-    public String getPreference() {
+    public Category getPreference() {
         return preference;
     }
 
-    public void setPreference(String preference) {
+    public void setPreference(Category preference) {
         this.preference = preference;
     }
 
