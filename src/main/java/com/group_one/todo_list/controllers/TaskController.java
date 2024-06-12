@@ -61,10 +61,10 @@ public class TaskController {
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 
-    // for this path, userId in the path is the user assigning the task, the user they assign to is within the body
-    @PatchMapping(value = "/assign-task-by-user/{userAssigningId}") // localhost:8080/tasks/assign-task-by-user/1
-    public ResponseEntity<Task> assignUserToTaskByUser(@PathVariable Long userAssigningId, @RequestBody UserAssignToUserDTO userAssignToUserDTO){
-        Task updatedTask = taskService.assignUserToTaskByUser(userAssigningId, userAssignToUserDTO);
+    // for this path, taskId in the path, the users assigning and receiving the task are in the body
+    @PatchMapping(value = "/assign-task-by-user/{taskId}") // localhost:8080/tasks/assign-task-by-user/1
+    public ResponseEntity<Task> assignUserToTaskByUser(@PathVariable Long taskId, @RequestBody UserAssignToUserDTO userAssignToUserDTO){
+        Task updatedTask = taskService.assignUserToTaskByUser(taskId, userAssignToUserDTO);
         return new ResponseEntity<>(updatedTask, HttpStatus.OK);
     }
 

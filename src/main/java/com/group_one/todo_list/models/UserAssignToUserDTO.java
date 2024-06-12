@@ -2,30 +2,30 @@ package com.group_one.todo_list.models;
 
 public class UserAssignToUserDTO {
 
-    private long taskId;
-    private long userId;
+    private long assigningUserId;
+    private long userReceivingTaskId;
 
-    public UserAssignToUserDTO(long taskId, long userId) {
-        this.taskId = taskId;
-        this.userId = userId;
+    public UserAssignToUserDTO(long assigningUserId, long userReceivingTaskId) {
+        this.assigningUserId = assigningUserId;
+        this.userReceivingTaskId = userReceivingTaskId;
     }
 
     public UserAssignToUserDTO() {
     }
 
-    public long getTaskId() {
-        return taskId;
+    public long getAssigningUserId() {
+        return assigningUserId;
     }
 
-    public void setTaskId(long taskId) {
-        this.taskId = taskId;
+    public void setAssigningUserId(long assigningUserId) {
+        this.assigningUserId = assigningUserId;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getUserReceivingTaskId() {
+        return userReceivingTaskId;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUserReceivingTaskId(long userReceivingTaskId) {
+        this.userReceivingTaskId = userReceivingTaskId;
     }
 }
