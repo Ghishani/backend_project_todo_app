@@ -26,8 +26,6 @@ public class TaskService {
     @Autowired
     HouseholdService householdService;
 
-    @Autowired
-    UserService userService;
 
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
@@ -99,6 +97,10 @@ public class TaskService {
 
     public List<Task> getTaskByCategory(String category) {
         return taskRepository.findByCategoryEquals(category);
+    }
+
+    public void deleteTask(long taskId){
+        taskRepository.deleteById(taskId);
     }
 
 }

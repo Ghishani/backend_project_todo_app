@@ -8,4 +8,5 @@ import java.util.List;
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
     List<Task> findByCategoryEquals(String category);
+    List<Task> findByUserIdEquals(long userId);
 }
