@@ -104,7 +104,9 @@ public class TaskService {
         // check if due date is past
         // If past -> update date to a week from now
         List<Task> tasksOverDue = taskRepository.findByDueDateLessThanAndHouseholdIdEquals(dueDate, householdId);
+        for (Task task : tasksOverDue){
 
+        }
 
 
     }
