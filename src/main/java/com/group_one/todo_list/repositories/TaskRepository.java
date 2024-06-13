@@ -12,6 +12,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findByCategoryEquals(Category category);
     List<Task> findByUserIdEquals(long userId);
     List<Task> findByDueDateLessThanAndHouseholdIdEquals(LocalDate dueDate, long householdId);
+    List<Task> findByHouseholdIdEquals(long householdId);
 
 
 }

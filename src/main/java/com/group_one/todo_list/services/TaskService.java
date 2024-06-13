@@ -151,6 +151,10 @@ public class TaskService {
         return "Error";
     }
 
+    public List<Task> getTasksByHousehold (long householdId) {
+        return taskRepository.findByHouseholdIdEquals(householdId);
+    }
+
 
 
     // We need a way of checking a user is assigned to a task before the task is completed
