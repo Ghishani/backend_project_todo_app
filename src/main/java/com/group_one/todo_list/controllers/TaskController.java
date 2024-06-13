@@ -33,6 +33,12 @@ public class TaskController {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping(value = "/filter-by-household/{householdId}")
+    public ResponseEntity<List<Task>> getTasksByHousehold(@PathVariable long householdId){
+        List<Task> tasksByHousehold = taskService.getTasksByHousehold(householdId);
+        return new ResponseEntity<>(tasksByHousehold, HttpStatus.OK);
+    }
+
     @PostMapping //localhost:8080/tasks
     public ResponseEntity<Task> createTask (@RequestBody TaskDTO taskDTO) {
         Task newTask = taskService.createTask(taskDTO);

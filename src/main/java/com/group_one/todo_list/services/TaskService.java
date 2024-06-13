@@ -185,5 +185,9 @@ public class TaskService {
         return "User does not have permission to delete";
     }
 
+    public List<Task> getTasksByHousehold (long householdId) {
+        return taskRepository.findByHouseholdIdEquals(householdId);
+    }
+
 
 }
