@@ -17,6 +17,7 @@ public class Task {
     private String description;
 
     @Column(name = "category")
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     @Column(name = "status")
