@@ -90,13 +90,14 @@ public class UserService {
 //    set userid to null for those tasks
 //    delete user method
 
-    public void deleteUser(long id){
+    public String deleteUser(long id){
         List<Task> tasksDoneByUser = taskRepository.findByUserIdEquals(id);
         for (Task task : tasksDoneByUser){
             task.setUser(null);
             taskRepository.save(task);
         }
         userRepository.deleteById(id);
+        return "User " + id + "ID deleted successfully.";
     }
 
 

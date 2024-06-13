@@ -61,16 +61,15 @@ public class UserController {
 //    we are deleting user here because it will be able to delete the task that is linked to them as well
 
     @DeleteMapping(value = "/{id}") //localhost:8080/users/1
-    public ResponseEntity<Long> deleteUser(@PathVariable long id){
-        userService.deleteUser(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+    public ResponseEntity<String> deleteUser(@PathVariable long id){
+        Optional<User> userOptional = userService.getUserById(id);
+        if(userOptional.isEmpty()){
+            return new ResponseEntity<>(" User not found.", HttpStatus.NOT_FOUND);
+        }
+
+        String message = userService.deleteUser(id);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
-
-
-
-
-
-
 
 
 }
