@@ -84,4 +84,11 @@ public class TaskController {
 
     }
 
+    //  localhost:8080/tasks/delete-task/1                 the payload will just be 2 for userId 2
+    @DeleteMapping(value = "/delete-task/{taskId}")
+    public ResponseEntity<String> deleteTask(@PathVariable long taskId, @RequestBody Long userId) {
+        String message = taskService.deleteTask(taskId, userId);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
 }

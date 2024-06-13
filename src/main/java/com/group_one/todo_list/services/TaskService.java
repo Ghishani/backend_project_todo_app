@@ -96,9 +96,6 @@ public class TaskService {
         return taskRepository.findByCategoryEquals(category);
     }
 
-    public void deleteTask(long taskId){
-        taskRepository.deleteById(taskId); // TODO: TBC
-    }
 
     public List<Task> checkDueDate(DueDatePerHouseholdDTO dueDatePerHouseholdDTO) {
         // check if due date is past
@@ -142,6 +139,19 @@ public class TaskService {
         }
         return null;
     }
+
+    public String deleteTask (long taskId, Long userId) {
+        // need error checking
+        Task task = taskRepository.findById(taskId).get();
+        User user = userRepository.findById(userId).get();
+        if (user.getHousehold().getId() == task.getHousehold().getId() && user.getAge() >= 18) {
+            taskRepository.deleteById(taskId);
+            return "Task " + taskId + "ID deleted successfully.";
+        }
+        return "Error";
+    }
+
+
 
     // We need a way of checking a user is assigned to a task before the task is completed
 
