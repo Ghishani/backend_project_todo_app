@@ -23,6 +23,7 @@ public class HouseholdService {
     }
 
     public Household updateHousehold(long id, Household household){
+
         Household householdToUpdate = householdRepository.findById(id).get();
 
         if(household.getName() != null){
