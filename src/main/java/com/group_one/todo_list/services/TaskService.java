@@ -50,15 +50,14 @@ public class TaskService {
     }
 
 
-
-//    TODO: May need a derived query
-//    public Optional<List<Task>> getTaskById(String category) {
-//        return taskRepository.
-//    }
-
     // TODO: EXTENSION: ADD LOGIC TO ENSURE THAT THE USER IS IN THE HOUSEHOLD OF THE TASK. AND LOGIC TO ENSURE HOUSEHOLDID AND USERID ARE VALID
     public Task updateTask(long id, TaskDTO taskDTO) {
-        Task taskToUpdate = taskRepository.findById(id).get();
+        Optional<Task> taskOptional = taskRepository.findById(id);
+
+        if (taskOptional.isEmpty()) {
+            return null;
+        }
+        Task taskToUpdate = taskOptional.get();
 
         if (taskDTO.getDescription() != null) {
             taskToUpdate.setDescription(taskDTO.getDescription());
@@ -77,7 +76,13 @@ public class TaskService {
         }
 
         if (taskDTO.getHouseholdId() != 0) {
-            Household household = householdService.getHouseholdById(taskDTO.getHouseholdId()).get();
+            Optional<Household> householdOptional = householdService.getHouseholdById(taskDTO.getHouseholdId());
+
+            if (householdOptional.isEmpty()) {
+                return null;
+            }
+
+            Household household = householdOptional.get();
             taskToUpdate.setHousehold(household);
         }
         return taskRepository.save(taskToUpdate);
@@ -85,6 +90,13 @@ public class TaskService {
 
 // redudant as we have a way to add a user to a task via another user
     public Task assignUserToTask(Long taskId, Long userId) {
+        Optional<Task> taskOptional = taskRepository.findById(taskId);
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        if(taskOptional.isEmpty() || userOptional.isEmpty()) {
+            return null;
+        }
+
         Task assignedTask = taskRepository.findById(taskId).get();
         User user = userRepository.findById(userId).get();
         user.addTask(assignedTask);
@@ -98,21 +110,30 @@ public class TaskService {
 
 
     public List<Task> checkDueDate(DueDatePerHouseholdDTO dueDatePerHouseholdDTO) {
-        // check if due date is past
-        // If past -> update date to a week from now
         LocalDate currentDate = dueDatePerHouseholdDTO.getCurrentDate();
         long householdId = dueDatePerHouseholdDTO.getHouseholdId();
+        Optional<Household> householdOptional = householdService.getHouseholdById(householdId);
+        if (householdOptional.isEmpty()) {
+            return null;
+        }
         List<Task> tasksOverDuePerHousehold = taskRepository.findByDueDateLessThanAndHouseholdIdEquals(currentDate, householdId);
         return tasksOverDuePerHousehold;
-
-
     }
 
     public Task assignUserToTaskByUser(Long taskId, UserAssignToUserDTO userAssignToUserDTO){
 
-        Task assignedTask = taskRepository.findById(taskId).get();
-        User userReceivingTask = userRepository.findById(userAssignToUserDTO.getUserReceivingTaskId()).get();
-        User userAssigningTask = userRepository.findById(userAssignToUserDTO.getAssigningUserId()).get();
+        Optional<Task> assignedTaskOptional = taskRepository.findById(taskId);
+        Optional<User> userReceivingTaskOptional = userRepository.findById(userAssignToUserDTO.getUserReceivingTaskId());
+        Optional<User> userAssigningTaskOptional = userRepository.findById(userAssignToUserDTO.getAssigningUserId());
+
+        if (assignedTaskOptional.isEmpty() || userReceivingTaskOptional.isEmpty() || userAssigningTaskOptional.isEmpty()) {
+            return null;
+        }
+
+        Task assignedTask = assignedTaskOptional.get();
+        User userReceivingTask = userReceivingTaskOptional.get();
+        User userAssigningTask = userAssigningTaskOptional.get();
+
 
         if ((userAssigningTask.getAge() >= 18) &&
                 (userAssigningTask.getHousehold().getId() == userReceivingTask.getHousehold().getId()) &&
@@ -129,7 +150,12 @@ public class TaskService {
     public Task updateStatus (long taskId, TaskDTO taskDTO) {
         // the taskId is the id of the task you want to update
         // the taskDTO contains the status you want to update to
-        Task task = taskRepository.findById(taskId).get();
+        Optional<Task> taskOptional = taskRepository.findById(taskId);
+        if (taskOptional.isEmpty()) {
+            return null;
+        }
+
+        Task task = taskOptional.get();
         if(task.getUser() == null){
             return null;
         }
@@ -141,19 +167,23 @@ public class TaskService {
     }
 
     public String deleteTask (long taskId, Long userId) {
-        // need error checking
-        Task task = taskRepository.findById(taskId).get();
-        User user = userRepository.findById(userId).get();
+        Optional<Task> taskOptional = taskRepository.findById(taskId);
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        if (taskOptional.isEmpty() || userOptional.isEmpty()) {
+            return "Invalid task Id or user Id";
+        }
+
+        Task task = taskOptional.get();
+        User user = userOptional.get();
+
+
         if (user.getHousehold().getId() == task.getHousehold().getId() && user.getAge() >= 18) {
             taskRepository.deleteById(taskId);
             return "Task " + taskId + "ID deleted successfully.";
         }
-        return "Error";
+        return "User does not have permission to delete";
     }
-
-
-
-    // We need a way of checking a user is assigned to a task before the task is completed
 
 
 }
