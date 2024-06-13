@@ -1,6 +1,5 @@
 package com.group_one.todo_list.controllers;
 
-import com.group_one.todo_list.models.Household;
 import com.group_one.todo_list.models.User;
 import com.group_one.todo_list.models.UserDTO;
 import com.group_one.todo_list.services.UserService;

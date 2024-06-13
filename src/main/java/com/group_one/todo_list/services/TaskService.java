@@ -7,7 +7,6 @@ import com.group_one.todo_list.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -67,9 +66,10 @@ public class TaskService {
             taskToUpdate.setCategory(taskDTO.getCategory());
         }
 
-        if (taskDTO.getStatus() != null) {
-            taskToUpdate.setStatus(taskDTO.getStatus());
-        }
+        // use separate path to do this
+//        if (taskDTO.getStatus() != null) {
+//            taskToUpdate.setStatus(taskDTO.getStatus());
+//        }
 
         if (taskDTO.getDueDate() != null) {
             taskToUpdate.setDueDate(taskDTO.getDueDate());
@@ -82,27 +82,14 @@ public class TaskService {
                 return null;
             }
 
+            // remove the user from the task since we are changing household.
+            taskToUpdate.setUser(null);
             Household household = householdOptional.get();
             taskToUpdate.setHousehold(household);
         }
         return taskRepository.save(taskToUpdate);
     }
 
-// redudant as we have a way to add a user to a task via another user
-    public Task assignUserToTask(Long taskId, Long userId) {
-        Optional<Task> taskOptional = taskRepository.findById(taskId);
-        Optional<User> userOptional = userRepository.findById(userId);
-
-        if(taskOptional.isEmpty() || userOptional.isEmpty()) {
-            return null;
-        }
-
-        Task assignedTask = taskRepository.findById(taskId).get();
-        User user = userRepository.findById(userId).get();
-        user.addTask(assignedTask);
-        assignedTask.setUser(user);
-        return taskRepository.save(assignedTask);
-    }
 
     public List<Task> getTaskByCategory(Category category) {
         return taskRepository.findByCategoryEquals(category);

@@ -59,14 +59,6 @@ public class TaskController {
         }
     }
 
-    @PatchMapping(value = "/assign-task/{taskId}") // localhost:8080/tasks/assign-task/1 (in the body, just put a number, not {"userId": 2})
-    public ResponseEntity<Task> assignUserToTask (@PathVariable Long taskId, @RequestBody Long userId) {
-        Task updatedTask = taskService.assignUserToTask(taskId, userId);
-        if(updatedTask == null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(updatedTask, HttpStatus.OK);
-    }
 
     @GetMapping(value = "/filter-by-category") // localhost:8080/tasks/filter-by-category?category=CLEANING
     public ResponseEntity<List<Task>> getAllByCategory(@RequestParam(required = false) Category category) {
