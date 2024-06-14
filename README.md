@@ -21,7 +21,7 @@ This API provides a to-do list for occupants of a household. Tasks are created f
 
 ### API Design
 
-*erd and uml*
+![ERD and UML](diagrams/ERD_UML.png)
 
 ### Endpoints
 
@@ -53,7 +53,7 @@ This API provides a to-do list for occupants of a household. Tasks are created f
 | GET | localhost:8080/filter-by-household/{householdId} |This request lists tasks within a household ID.|
 | POST| localhost:8080/tasks | This request creates a new task. |
 | PATCH | localhost:8080/tasks/{id}| This request updates specific tasks.|
-| GET | localhost:8080/filter-by-category| This request lists all tasks that fall under the same category. |
+| GET | localhost:8080/filter-by-category?category=CATEGORY| This request lists all tasks that fall under the same category as specified. |
 | PATCH | localhost:8080/assign-task-by-user/{taskId}| This request allows for a user to assign another user a task that needs to be completed (assigning users have to be in the same household and over the age of 18.|
 | PATCH | localhost:8080/update-status/{id}| This request updates the status of the task that needs to be completed e.g. "*NOT_STARTED*", "*IN_PROGRESS*" or "*COMPLETED*"|
 | GET | localhost:8080/tasks/filter-by-overdue-tasks | This request lists incomplete tasks that have passed the given deadline. |
