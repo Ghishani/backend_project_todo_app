@@ -18,6 +18,7 @@ public class User {
     private String name;
 
     @Column(name = "preference")
+    @Enumerated(EnumType.STRING)
     private Category preference;
 
 //    extension: add age to user data
