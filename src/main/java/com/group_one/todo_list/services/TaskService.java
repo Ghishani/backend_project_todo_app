@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -104,7 +105,13 @@ public class TaskService {
             return null;
         }
         List<Task> tasksOverDuePerHousehold = taskRepository.findByDueDateLessThanAndHouseholdIdEquals(currentDate, householdId);
-        return tasksOverDuePerHousehold;
+        List<Task> uncompletedOverDueTasks = new ArrayList<>();
+        for (Task task : tasksOverDuePerHousehold){
+            if (!(task.getStatus().equals(Status.COMPLETED))){
+                uncompletedOverDueTasks.add(task);
+            }
+        }
+        return uncompletedOverDueTasks;
     }
 
     public Task assignUserToTaskByUser(Long taskId, UserAssignToUserDTO userAssignToUserDTO){
