@@ -59,5 +59,5 @@ This API provides a to-do list for occupants of a household. Tasks are created f
 | GET | localhost:8080/tasks/filter-by-overdue-tasks | This request lists incomplete tasks that have passed the given deadline. |
 | DELETE | localhost:8080/delete-task/{taskId} | This request deletes tasks; can only be deleted by users over the age of 18 and are in the same household of the task that is assigned in. |
 
-
+The file "To-Do payloads.postman_collection.json" can be imported into Postman, which gives examples of all routes and their payloads.
  
